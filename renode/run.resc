@@ -1,0 +1,11 @@
+:name: STM32H743 Hi Demo
+:description: Loads our hand-built firmware on simulated STM32H743 and shows USART3 output.
+
+mach create "stm32h743"
+machine LoadPlatformDescription @platforms/cpus/stm32h743.repl
+
+sysbus LoadELF @build/firmware.elf
+
+showAnalyzer sysbus.usart3
+
+start
