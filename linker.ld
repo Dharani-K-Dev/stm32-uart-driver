@@ -31,12 +31,17 @@ SECTIONS
     } > FLASH
 
     .data : {
-        *(.data*)
-    } > RAM
+    _sdata = .;         
+    *(.data*)
+    _edata = .;          
+} > RAM AT> FLASH      
+_sidata = LOADADDR(.data);
 
-    .bss : {
-        *(.bss*)
-    } > RAM
+   .bss : {
+    _sbss = .;
+    *(.bss*)
+    _ebss = .;
+} > RAM
 }
 
 _stack_top = ORIGIN(RAM) + LENGTH(RAM);
