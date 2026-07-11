@@ -22,7 +22,6 @@ vector_table:
     .global Reset_Handler
     .thumb_func
 Reset_Handler:
-    Reset_Handler:
     
     ldr r0, =_sidata      
     ldr r1, =_sdata       
