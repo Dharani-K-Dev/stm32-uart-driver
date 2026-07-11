@@ -22,12 +22,29 @@ vector_table:
     .global Reset_Handler
     .thumb_func
 Reset_Handler:
-    /* For now, our reset handler does nothing fancy.
-     * It just calls main() directly.
-     * Later we'll add: copy .data, zero .bss, then call main.
-     */
+    Reset_Handler:
+    
+    ldr r0, =_sidata      
+    ldr r1, =_sdata       
+    ldr r2, =_edata       
+copy_loop:
+    cmp r1, r2            
+    bcs copy_done         
+    ldr r3, [r0], #4      
+    str r3, [r1], #4      
+    b copy_loop
+copy_done:
+   
+    ldr r1, =_sbss
+    ldr r2, =_ebss
+    movs r3, #0          
+zero_loop:
+    cmp r1, r2
+    bcs zero_done
+    str r3, [r1], #4      
+    b zero_loop
+zero_done:
     bl main
-
     /* If main ever returns, just loop forever — there's no OS to return to. */
 hang:
     b hang
