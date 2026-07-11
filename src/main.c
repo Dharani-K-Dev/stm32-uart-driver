@@ -9,9 +9,6 @@
 
 #include "uart_driver.h"
 
-volatile int magic = 0xABCD;   /* .data test */
-volatile int ghost;            /* .bss test */
-
 int main(void)
 {
     uart_init(115200U);
